@@ -13,11 +13,17 @@ inputs:
     description: 'How many ms to wait'
     required: true
     default: '1000'
+  sb_input:
+    description: 'Does it even work?'
+    required: true
+    default: 'no'
 
 # Define your outputs here.
 outputs:
   time:
     description: 'the time'
+  sb_ouptut:
+    descriotion : 'sb_output'
 
 runs:
   using: node20
