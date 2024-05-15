@@ -21,7 +21,7 @@ export async function run(): Promise<void> {
 
     // Set outputs for other workflow steps to use
     core.setOutput('time', new Date().toTimeString())
-    core.setOutput('sb_input', sb_input)
+    core.setOutput('sb_output', sb_input)
 
   } catch (error) {
     // Fail the workflow run if an error occurs
