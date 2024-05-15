@@ -23,7 +23,7 @@ outputs:
   time:
     description: 'the time'
   sb_ouptut:
-    descriotion : 'sb_output'
+    description : 'sb_output'
 
 runs:
   using: node20
