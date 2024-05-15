@@ -24958,15 +24958,19 @@ const wait_1 = __nccwpck_require__(5259);
  */
 async function run() {
     try {
-        const ms = core.getInput('milliseconds');
+        // const ms: string = core.getInput('milliseconds')
+        const sb_input = core.getInput('sb_input');
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        core.debug(`Waiting ${ms} milliseconds ...`);
+        // core.debug(`Waiting ${ms} milliseconds ...`)
+        // core.debug(`this is me sb sb sb`)
+        // console.log(`SB SB Waiting ${ms} milliseconds ...`)
         // Log the current timestamp, wait, then log the new timestamp
         core.debug(new Date().toTimeString());
-        await (0, wait_1.wait)(parseInt(ms, 10));
+        await (0, wait_1.wait)(parseInt('1000', 10));
         core.debug(new Date().toTimeString());
         // Set outputs for other workflow steps to use
         core.setOutput('time', new Date().toTimeString());
+        core.setOutput('sb_output', sb_input);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
