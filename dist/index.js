@@ -24961,8 +24961,7 @@ async function run() {
         // const ms: string = core.getInput('milliseconds')
         const sb_input = core.getInput('sb_input');
         console.log('console log message');
-        core.info('core.inf message');
-        core.debug('core.debug message');
+        console.log(`sb_input is  ${sb_input}`);
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         // core.debug(`Waiting ${ms} milliseconds ...`)
         // core.debug(`this is me sb sb sb`)
