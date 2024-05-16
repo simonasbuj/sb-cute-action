@@ -26,24 +26,39 @@ export async function run(): Promise<void> {
       core.info(`Checked-out file: ${file}`)
     }
 
-    console.log('trying to zip the repo')
-    const output = fs.createWriteStream(path.join(process.cwd(), 'project.zip'))
-    const archive = archiver('zip')
-
-    archive.pipe(output)
-    archive.directory(repoPath, false)
-    archive.finalize()
-    output.on('close', () => {
-      // Print the list of files in the directory
-      console.log(`current path is ${process.cwd()}`)
-      // Print the names of all files
-      console.log(
-        '----------FILES IN current folder, is there a zip?---------------'
+    const zipPromise = new Promise<void>(() => {
+      console.log('trying to zip the repo')
+      const output = fs.createWriteStream(
+        path.join(process.cwd(), 'project.zip')
       )
-      for (const file of fs.readdirSync(process.cwd())) {
-        core.info(`Current folder file: ${file}`)
-      }
+      const archive = archiver('zip')
+
+      archive.pipe(output)
+      archive.directory(repoPath, false)
+      archive.finalize()
     })
+    await zipPromise
+
+    console.log(`current path is ${process.cwd()}`)
+    // Print the names of all files
+    console.log(
+      '----------FILES IN current folder, is there a zip?---------------'
+    )
+    for (const file of fs.readdirSync(process.cwd())) {
+      core.info(`Current folder file: ${file}`)
+    }
+
+    // output.on('close', () => {
+    //   // Print the list of files in the directory
+    //   console.log(`current path is ${process.cwd()}`)
+    //   // Print the names of all files
+    //   console.log(
+    //     '----------FILES IN current folder, is there a zip?---------------'
+    //   )
+    //   for (const file of fs.readdirSync(process.cwd())) {
+    //     core.info(`Current folder file: ${file}`)
+    //   }
+    // })
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     // core.debug(`Waiting ${ms} milliseconds ...`)
