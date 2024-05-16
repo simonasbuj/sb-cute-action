@@ -53799,32 +53799,23 @@ async function run() {
         for (const file of files) {
             core.info(`Checked-out file: ${file}`);
         }
-        const zipPromise = new Promise(() => {
-            console.log('trying to zip the repo');
-            const output = fs.createWriteStream(path.join(process.cwd(), 'project.zip'));
-            const archive = (0, archiver_1.default)('zip');
-            archive.pipe(output);
-            archive.directory(repoPath, false);
-            archive.finalize();
-        });
-        await zipPromise;
+        console.log('trying to zip the repo');
+        const output = fs.createWriteStream(path.join(process.cwd(), 'project.zip'));
+        const archive = (0, archiver_1.default)('zip');
+        archive.pipe(output);
+        archive.directory(repoPath, false);
+        archive.finalize();
         console.log(`current path is ${process.cwd()}`);
         // Print the names of all files
-        console.log('----------FILES IN current folder, is there a zip?---------------');
-        for (const file of fs.readdirSync(process.cwd())) {
-            core.info(`Current folder file: ${file}`);
-        }
-        // output.on('close', () => {
-        //   // Print the list of files in the directory
-        //   console.log(`current path is ${process.cwd()}`)
-        //   // Print the names of all files
-        //   console.log(
-        //     '----------FILES IN current folder, is there a zip?---------------'
-        //   )
-        //   for (const file of fs.readdirSync(process.cwd())) {
-        //     core.info(`Current folder file: ${file}`)
-        //   }
-        // })
+        output.on('close', () => {
+            // Print the list of files in the directory
+            console.log(`current path is ${process.cwd()}`);
+            // Print the names of all files
+            console.log('----------FILES IN current folder, is there a zip?---------------');
+            for (const file of fs.readdirSync(process.cwd())) {
+                core.info(`Current folder file: ${file}`);
+            }
+        });
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         // core.debug(`Waiting ${ms} milliseconds ...`)
         // core.debug(`this is me sb sb sb`)
