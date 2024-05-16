@@ -33,15 +33,17 @@ export async function run(): Promise<void> {
     archive.pipe(output)
     archive.directory(repoPath, false)
     archive.finalize()
-
-    console.log(`current path is ${process.cwd()}`)
-    // Print the names of all files
-    console.log(
-      '----------FILES IN current folder, is there a zip?---------------'
-    )
-    for (const file of fs.readdirSync(process.cwd())) {
-      core.info(`Current folder file: ${file}`)
-    }
+    output.on('close', () => {
+      // Print the list of files in the directory
+      console.log(`current path is ${process.cwd()}`)
+      // Print the names of all files
+      console.log(
+        '----------FILES IN current folder, is there a zip?---------------'
+      )
+      for (const file of fs.readdirSync(process.cwd())) {
+        core.info(`Current folder file: ${file}`)
+      }
+    })
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     // core.debug(`Waiting ${ms} milliseconds ...`)
