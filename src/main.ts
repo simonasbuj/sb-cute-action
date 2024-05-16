@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import { wait } from './wait'
 import * as fs from 'fs'
+import archiver from 'archiver'
 
 /**
  * The main function for the action.
@@ -22,6 +23,23 @@ export async function run(): Promise<void> {
     console.log('----------FILES IN CHECKOUT OUT REPO---------------')
     for (const file of files) {
       core.info(`Checked-out file: ${file}`)
+    }
+
+    console.log('trying to zip the repo')
+    const output = fs.createWriteStream('project.zip')
+    const archive = archiver('zip')
+
+    archive.pipe(output)
+    archive.directory(repoPath, false)
+    archive.finalize()
+
+    console.log(`current path is ${process.cwd()}`)
+    // Print the names of all files
+    console.log(
+      '----------FILES IN current folder, is there a zip?---------------'
+    )
+    for (const file of fs.readdirSync(process.cwd())) {
+      core.info(`Current folder file: ${file}`)
     }
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
