@@ -11,6 +11,10 @@ export async function run(): Promise<void> {
     const sb_input: string = core.getInput('sb_input')
     console.log('console log message')
     console.log(`sb_input is  ${sb_input}`)
+
+    const repoPath = process.env.GITHUB_WORKSPACE as string
+    console.log(`repo path is ${repoPath}`)
+
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     // core.debug(`Waiting ${ms} milliseconds ...`)
     // core.debug(`this is me sb sb sb`)
