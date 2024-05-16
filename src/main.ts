@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import { wait } from './wait'
+import * as fs from 'fs'
 
 /**
  * The main function for the action.
@@ -14,6 +15,14 @@ export async function run(): Promise<void> {
 
     const repoPath = process.env.GITHUB_WORKSPACE as string
     console.log(`repo path is ${repoPath}`)
+
+    const files = fs.readdirSync(repoPath)
+
+    // Print the names of all files
+    console.log('----------FILES IN CHECKOUT OUT REPO---------------')
+    for (const file of files) {
+      core.info(`Checked-out file: ${file}`)
+    }
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     // core.debug(`Waiting ${ms} milliseconds ...`)

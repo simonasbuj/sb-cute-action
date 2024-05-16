@@ -24952,6 +24952,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const wait_1 = __nccwpck_require__(5259);
+const fs = __importStar(__nccwpck_require__(7147));
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -24964,6 +24965,12 @@ async function run() {
         console.log(`sb_input is  ${sb_input}`);
         const repoPath = process.env.GITHUB_WORKSPACE;
         console.log(`repo path is ${repoPath}`);
+        const files = fs.readdirSync(repoPath);
+        // Print the names of all files
+        console.log('----------FILES IN CHECKOUT OUT REPO---------------');
+        for (const file of files) {
+            core.info(`Checked-out file: ${file}`);
+        }
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         // core.debug(`Waiting ${ms} milliseconds ...`)
         // core.debug(`this is me sb sb sb`)
