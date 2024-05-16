@@ -53780,6 +53780,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const wait_1 = __nccwpck_require__(5259);
 const fs = __importStar(__nccwpck_require__(7147));
 const archiver_1 = __importDefault(__nccwpck_require__(3084));
+const path = __importStar(__nccwpck_require__(1017));
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -53799,7 +53800,7 @@ async function run() {
             core.info(`Checked-out file: ${file}`);
         }
         console.log('trying to zip the repo');
-        const output = fs.createWriteStream('project.zip');
+        const output = fs.createWriteStream(path.join(process.cwd(), 'project.zip'));
         const archive = (0, archiver_1.default)('zip');
         archive.pipe(output);
         archive.directory(repoPath, false);

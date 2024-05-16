@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import { wait } from './wait'
 import * as fs from 'fs'
 import archiver from 'archiver'
+import * as path from 'path'
 
 /**
  * The main function for the action.
@@ -26,7 +27,7 @@ export async function run(): Promise<void> {
     }
 
     console.log('trying to zip the repo')
-    const output = fs.createWriteStream('project.zip')
+    const output = fs.createWriteStream(path.join(process.cwd(), 'project.zip'))
     const archive = archiver('zip')
 
     archive.pipe(output)
